@@ -54,14 +54,17 @@ public class NasaEpicService {
         Path dateFolder = Paths.get(targetFolder, date);
         FileUtils.createDirectoryIfNotExists(dateFolder);
 
+        System.out.print("Downloading images");
+
         for (Map<String, Object> image : images) {
+            System.out.print(".");
             String imageName = (String) image.get("image");
             String imageUrl = String.format("%s/archive/natural/%s/png/%s.png?api_key=%s", apiUrl, date.replace("-", "/"), imageName, apiKey);
             Path imagePath = dateFolder.resolve(imageName + ".png");
             downloadFileWithHeaders(imageUrl, imagePath);
         }
 
-        System.out.println("Downloaded " + images.length + " images for date " + date);
+        System.out.println("\nDownloaded " + images.length + " images for date " + date);
 
     }
 
